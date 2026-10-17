@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog - iStore Uz Apple Reseller</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            blue: '#0071e3',
+                            hover: '#0077ed',
+                            darkBg: '#0b0b0f',
+                            darkCard: '#16161e',
+                            lightBg: '#f5f5f7',
+                            lightCard: '#ffffff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-light {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px rgba(0, 113, 227, 0.35);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0071e3;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-apple-darkBg text-gray-100 dark:bg-apple-darkBg dark:text-gray-100 bg-apple-lightBg text-gray-900 transition-colors duration-300 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 text-white text-xs py-2 px-4 text-center font-medium flex justify-between items-center z-50 relative">
+        <div class="hidden md:block"></div>
+        <div class="flex items-center space-x-2 mx-auto md:mx-0">
+            <i class="fab font-bold fa-telegram text-base animate-bounce"></i>
+            <span id="txt-topbar">Bizning rasmiy Telegram kanalimizga a'zo bo'ling va eksklyuziv chegirmalarga ega bo'ling!</span>
+            <a href="https://t.me/MiniCarCollectionUz" target="_blank" class="underline hover:text-gray-200 ml-2 font-bold" id="txt-topbar-link">A'zo bo'lish →</a>
+        </div>
+        <div class="flex items-center space-x-3 text-xs">
+            <select id="lang-select" onchange="changeLanguage(this.value)" class="bg-transparent border border-white/30 rounded px-1 py-0.5 text-white focus:outline-none cursor-pointer">
+                <option value="uz" class="bg-gray-900 text-white">UZ</option>
+                <option value="ru" class="bg-gray-900 text-white">RU</option>
+                <option value="en" class="bg-gray-900 text-white">EN</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="sticky top-0 z-40 w-full glass dark:glass glass-light transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center space-x-3 group">
+                    <i class="fab fa-apple text-3xl text-white dark:text-white text-black transition-transform group-hover:scale-110"></i>
+                    <span class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">iStore Uz</span>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                    <a href="index.html" class="hover:text-blue-400 transition" id="nav-home">Bosh sahifa</a>
+                    <a href="catalog.html" class="text-blue-500 font-semibold border-b-2 border-blue-500 pb-1" id="nav-catalog">Katalog</a>
+                    <a href="product-detail.html" class="hover:text-blue-400 transition" id="nav-product">Flagmanlar</a>
+                    <a href="cart.html" class="hover:text-blue-400 transition" id="nav-cart">Savat</a>
+                    <a href="about.html" class="hover:text-blue-400 transition" id="nav-about">Biz haqimizda</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-gray-800/50 transition" title="Mavzuni almashtirish">
+                        <i id="theme-icon" class="fas fa-moon text-lg text-yellow-400"></i>
+                    </button>
+                    <a href="cart.html" class="relative p-2 hover:text-blue-400 transition">
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="https://t.me/MiniCarCollectionUz" target="_blank" class="hidden sm:flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium text-sm transition glow-effect">
+                        <i class="fab fa-telegram-plane"></i>
+                        <span id="btn-tg">Telegram Kanal</span>
+                    </a>
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-2xl focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-6 space-y-3 bg-gray-900/95 border-b border-gray-800">
+            <a href="index.html" class="block py-2 text-gray-300 hover:text-white" id="m-nav-home">Bosh sahifa</a>
+            <a href="catalog.html" class="block py-2 text-blue-400 font-bold" id="m-nav-catalog">Katalog</a>
+            <a href="product-detail.html" class="block py-2 text-gray-300 hover:text-white" id="m-nav-product">Flagmanlar</a>
+            <a href="cart.html" class="block py-2 text-gray-300 hover:text-white" id="m-nav-cart">Savat</a>
+            <a href="about.html" class="block py-2 text-gray-300 hover:text-white" id="m-nav-about">Biz haqimizda</a>
+            <a href="https://t.me/MiniCarCollectionUz" target="_blank" class="flex items-center justify-center space-x-2 w-full bg-blue-600 py-2 rounded-lg font-medium">
+                <i class="fab fa-telegram-plane"></i>
+                <span id="m-btn-tg">Telegram Kanalimiz</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- HEADER & SEARCH SECTION -->
+    <header class="py-12 bg-gray-900/30 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+                <div>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight" id="catalog-title">Apple Mahsulotlari Katalogi</h1>
+                    <p class="text-gray-400 mt-1 text-sm" id="catalog-desc">Barcha original Apple qurilmalari, rasmiy kafolat va tezkor yetkazib berish bilan</p>
+                </div>
+                <!-- SEARCH BAR -->
+                <div class="w-full md:w-80 relative">
+                    <input type="text" id="search-input" oninput="filterProducts()" placeholder="Qidirish (masalan: iPhone 16)..." class="w-full bg-apple-darkCard border border-gray-800 rounded-2xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition">
+                    <i class="fas fa-search absolute left-3.5 top-3.5 text-gray-500"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CATALOG CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- FILTERS SIDEBAR -->
+            <aside class="space-y-6">
+                <div class="bg-apple-darkCard border border-gray-800 rounded-3xl p-6 space-y-6 sticky top-24">
+                    <div class="flex justify-between items-center pb-4 border-b border-gray-800">
+                        <h3 class="font-bold text-lg flex items-center space-x-2">
+                            <i class="fas fa-sliders-h text-blue-500"></i>
+                            <span id="filter-heading">Filtrlar</span>
+                        </h3>
+                        <button onclick="resetFilters()" class="text-xs text-blue-400 hover:underline" id="filter-reset">Tozalash</button>
+                    </div>
+
+                    <!-- CATEGORIES -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-3" id="lbl-cat">Kategoriya</label>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="cat" value="all" checked onchange="filterProducts()" class="accent-blue-600">
+                                <span>Barchasi</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="cat" value="iphone" onchange="filterProducts()" class="accent-blue-600">
+                                <span>iPhone</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="cat" value="macbook" onchange="filterProducts()" class="accent-blue-600">
+                                <span>MacBook</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="cat" value="ipad" onchange="filterProducts()" class="accent-blue-600">
+                                <span>iPad</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="cat" value="watch" onchange="filterProducts()" class="accent-blue-600">
+                                <span>Apple Watch</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="cat" value="airpods" onchange="filterProducts()" class="accent-blue-600">
+                                <span>AirPods</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- PRICE RANGE FILTER -->
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                            <span id="lbl-price">Maksimal Narx</span>
+                            <span id="price-val" class="text-blue-400 font-bold">$3000</span>
+                        </div>
+                        <input type="range" id="price-range" min="100" max="3000" step="50" value="3000" oninput="updatePriceLabel(this.value); filterProducts();" class="w-full accent-blue-600 cursor-pointer">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>$100</span>
+                            <span>$3000</span>
+                        </div>
+                    </div>
+
+                    <!-- SORT BY -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" id="lbl-sort">Tartiblash</label>
+                        <select id="sort-select" onchange="filterProducts()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                            <option value="popular">Ommabopligi bo'yicha</option>
+                            <option value="cheap">Avval arzonlari</option>
+                            <option value="expensive">Avval qimmatlari</option>
+                        </select>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- PRODUCTS GRID -->
+            <section class="lg:col-span-3">
+                <div class="flex justify-between items-center mb-6">
+                    <p class="text-xs text-gray-400"><span id="product-count" class="font-bold text-white">0</span> ta mahsulot topildi</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="catalog-grid">
+                    <!-- Dynamic Product Cards Injected Here by JS -->
+                </div>
+
+                <!-- EMPTY STATE -->
+                <div id="no-results" class="hidden text-center py-16 bg-apple-darkCard border border-gray-800 rounded-3xl">
+                    <i class="fas fa-search-minus text-5xl text-gray-600 mb-4"></i>
+                    <h3 class="text-xl font-bold">Mahsulot topilmadi</h3>
+                    <p class="text-gray-400 text-sm mt-1">Filtr parametrlarini o'zgartirib ko'ring.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- QUICK ORDER MODAL -->
+    <div id="quick-order-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-apple-darkCard border border-gray-800 rounded-3xl max-w-md w-full p-6 relative">
+            <button onclick="closeQuickOrderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-bold mb-1">Tezkor Buyurtma</h3>
+            <p class="text-xs text-gray-400 mb-6">Ma'lumotlaringizni qoldiring va operatorimiz 5 daqiqada bog'lanadi.</p>
+
+            <form id="quick-order-form" onsubmit="sendTelegramQuickOrder(event)" class="space-y-4">
+                <input type="hidden" id="modal-product-name" value="">
+                <input type="hidden" id="modal-product-price" value="">
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Tanlangan Mahsulot:</label>
+                    <div id="modal-product-display" class="p-3 bg-gray-900/80 rounded-xl font-bold text-blue-400 text-sm"></div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Ismingiz *</label>
+                    <input type="text" id="cust-name" required placeholder="Masalan: Abdulloh" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Telefon Raqamingiz *</label>
+                    <input type="tel" id="cust-phone" required placeholder="+998 90 123 45 67" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Manzil yoki Izoh</label>
+                    <textarea id="cust-note" rows="2" placeholder="Yetkazib berish manzili..." class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500"></textarea>
+                </div>
+
+                <button type="submit" id="modal-submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition flex items-center justify-center space-x-2">
+                    <i class="fab fa-telegram-plane"></i>
+                    <span>Buyurtmani Telegram Botga Yuborish</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-950 border-t border-gray-900 pt-16 pb-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <i class="fab fa-apple text-3xl text-white"></i>
+                        <span class="text-xl font-bold">iStore Uz</span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        O'zbekistondagi eng ishonchli original Apple mahsulotlari internet magazini va Telegram savdo platformasi.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm">Navigatsiya</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="index.html" class="hover:text-white">Bosh sahifa</a></li>
+                        <li><a href="catalog.html" class="hover:text-white">Katalog</a></li>
+                        <li><a href="cart.html" class="hover:text-white">Savat</a></li>
+                        <li><a href="about.html" class="hover:text-white">Biz haqimizda</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm">Kategoriyalar</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="catalog.html?cat=iphone" class="hover:text-white">iPhone Series</a></li>
+                        <li><a href="catalog.html?cat=macbook" class="hover:text-white">MacBook Pro & Air</a></li>
+                        <li><a href="catalog.html?cat=ipad" class="hover:text-white">iPad Pro & Air</a></li>
+                        <li><a href="catalog.html?cat=watch" class="hover:text-white">Apple Watch Ultra</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm">Aloqa & Telegram</h4>
+                    <p class="text-xs text-gray-400 mb-2"><i class="fas fa-phone mr-2"></i> +998 (90) 123-45-67</p>
+                    <p class="text-xs text-gray-400 mb-4"><i class="fab fa-telegram mr-2"></i> @MiniCarCollectionUz</p>
+                    <div class="flex space-x-3">
+                        <a href="https://t.me/MiniCarCollectionUz" target="_blank" class="w-9 h-9 bg-gray-900 rounded-lg flex items-center justify-center text-blue-400 hover:bg-blue-600 hover:text-white transition"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-900 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 iStore Uz. Barcha huquqlar himoyalangan.</p>
+                <p class="mt-2 sm:mt-0">Design & Architecture by Senior Dev Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS SCRIPT -->
+    <script>
+        const BOT_TOKEN = "8987099421:AAEDCZMo4WPe7IvbJhbmRxHybsZ2MHeyQTA";
+        const CHAT_ID = "-8325706679";
+
+        // PRODUCTS DATABASE
+        const productsDB = [
+            { id: 1, title: "iPhone 16 Pro Max", category: "iphone", price: 1350, image: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?q=80&w=800&auto=format&fit=crop", desc: "256GB • Desert Titanium" },
+            { id: 2, title: "iPhone 16 Pro", category: "iphone", price: 1150, image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=800&auto=format&fit=crop", desc: "128GB • Natural Titanium" },
+            { id: 3, title: "iPhone 15 Pro Max", category: "iphone", price: 1080, image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?q=80&w=800&auto=format&fit=crop", desc: "256GB • Blue Titanium" },
+            { id: 4, title: "MacBook Pro 16 M3 Max", category: "macbook", price: 2890, image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop", desc: "36GB RAM • 1TB SSD • Space Black" },
+            { id: 5, title: "MacBook Air 15 M3", category: "macbook", price: 1290, image: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=800&auto=format&fit=crop", desc: "16GB RAM • 512GB SSD • Midnight" },
+            { id: 6, title: "iPad Pro 13 M4", category: "ipad", price: 1290, image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=800&auto=format&fit=crop", desc: "256GB • Ultra Retina XDR" },
+            { id: 7, title: "iPad Air 11 M2", category: "ipad", price: 650, image: "https://images.unsplash.com/photo-1561154464-82e9adf32764?q=80&w=800&auto=format&fit=crop", desc: "128GB • Space Gray" },
+            { id: 8, title: "Apple Watch Ultra 2", category: "watch", price: 790, image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=800&auto=format&fit=crop", desc: "Titanium Case • Ocean Band" },
+            { id: 9, title: "Apple Watch Series 10", category: "watch", price: 420, image: "https://images.unsplash.com/photo-1510017803434-a899398421b3?q=80&w=800&auto=format&fit=crop", desc: "45mm • Jet Black" },
+            { id: 10, title: "AirPods Max USB-C", category: "airpods", price: 540, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop", desc: "Active Noise Cancellation" },
+            { id: 11, title: "AirPods Pro 2", category: "airpods", price: 230, image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?q=80&w=800&auto=format&fit=crop", desc: "USB-C Case • MagSafe" }
+        ];
+
+        // DICTIONARY
+        const i18n = {
+            uz: {
+                topbar: "Bizning rasmiy Telegram kanalimizga a'zo bo'ling va eksklyuziv chegirmalarga ega bo'ling!",
+                topbarLink: "A'zo bo'lish →",
+                navHome: "Bosh sahifa",
+                navCatalog: "Katalog",
+                navProduct: "Flagmanlar",
+                navCart: "Savat",
+                navAbout: "Biz haqimizda",
+                btnTg: "Telegram Kanal",
+                catalogTitle: "Apple Mahsulotlari Katalogi",
+                catalogDesc: "Barcha original Apple qurilmalari, rasmiy kafolat va tezkor yetkazib berish bilan",
+                filterHeading: "Filtrlar",
+                filterReset: "Tozalash",
+                lblCat: "Kategoriya",
+                lblPrice: "Maksimal Narx",
+                lblSort: "Tartiblash"
+            },
+            ru: {
+                topbar: "Подписывайтесь на наш официальный Telegram-канал и получайте эксклюзивные скидки!",
+                topbarLink: "Подписаться →",
+                navHome: "Главная",
+                navCatalog: "Каталог",
+                navProduct: "Флагманы",
+                navCart: "Корзина",
+                navAbout: "О нас",
+                btnTg: "Telegram Канал",
+                catalogTitle: "Каталог Продукции Apple",
+                catalogDesc: "Вся оригинальная техника Apple с официальной гарантией и быстрой доставкой",
+                filterHeading: "Фильтры",
+                filterReset: "Сбросить",
+                lblCat: "Категория",
+                lblPrice: "Макс. Цена",
+                lblSort: "Сортировка"
+            },
+            en: {
+                topbar: "Subscribe to our official Telegram channel and get exclusive discounts!",
+                topbarLink: "Subscribe →",
+                navHome: "Home",
+                navCatalog: "Catalog",
+                navProduct: "Flagships",
+                navCart: "Cart",
+                navAbout: "About Us",
+                btnTg: "Telegram Channel",
+                catalogTitle: "Apple Product Catalog",
+                catalogDesc: "All original Apple devices with official warranty and fast delivery",
+                filterHeading: "Filters",
+                filterReset: "Reset",
+                lblCat: "Category",
+                lblPrice: "Max Price",
+                lblSort: "Sort By"
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartBadge();
+            setupMobileMenu();
+            checkUrlCategory();
+            filterProducts();
+
+            const savedLang = localStorage.getItem('app_lang') || 'uz';
+            document.getElementById('lang-select').value = savedLang;
+            changeLanguage(savedLang);
+
+            const savedTheme = localStorage.getItem('app_theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-icon').className = 'fas fa-sun text-lg text-yellow-500';
+            }
+        });
+
+        function checkUrlCategory() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category') || urlParams.get('cat');
+            if (category) {
+                const radio = document.querySelector(`input[name="cat"][value="${category}"]`);
+                if (radio) radio.checked = true;
+            }
+        }
+
+        function updatePriceLabel(val) {
+            document.getElementById('price-val').innerText = `$${val}`;
+        }
+
+        function resetFilters() {
+            document.querySelector('input[name="cat"][value="all"]').checked = true;
+            document.getElementById('price-range').value = 3000;
+            document.getElementById('price-val').innerText = '$3000';
+            document.getElementById('search-input').value = '';
+            document.getElementById('sort-select').value = 'popular';
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const category = document.querySelector('input[name="cat"]:checked').value;
+            const maxPrice = parseFloat(document.getElementById('price-range').value);
+            const search = document.getElementById('search-input').value.toLowerCase();
+            const sort = document.getElementById('sort-select').value;
+
+            let filtered = productsDB.filter(p => {
+                const matchesCat = (category === 'all') || (p.category === category);
+                const matchesPrice = p.price <= maxPrice;
+                const matchesSearch = p.title.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
+                return matchesCat && matchesPrice && matchesSearch;
+            });
+
+            if (sort === 'cheap') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sort === 'expensive') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            renderProducts(filtered);
+        }
+
+        function renderProducts(products) {
+            const grid = document.getElementById('catalog-grid');
+            const noResults = document.getElementById('no-results');
+            document.getElementById('product-count').innerText = products.length;
+
+            if (products.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            grid.innerHTML = products.map(p => `
+                <div class="bg-apple-darkCard border border-gray-800 rounded-3xl p-5 flex flex-col justify-between hover:border-blue-500/40 transition duration-300 group">
+                    <div>
+                        <div class="relative mb-4 overflow-hidden rounded-2xl bg-gray-900/50 p-2">
+                            <img src="${p.image}" alt="${p.title}" class="w-full h-48 object-cover object-center group-hover:scale-105 transition duration-500">
+                        </div>
+                        <h3 class="text-lg font-bold">${p.title}</h3>
+                        <p class="text-xs text-gray-400 mt-1">${p.desc}</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-800 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-gray-500">Narxi:</p>
+                            <p class="text-lg font-black text-blue-400">$${p.price}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="openQuickOrderModal('${p.title}', '${p.price}')" class="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-xs font-bold rounded-xl transition">
+                                Tezkor
+                            </button>
+                            <button onclick="addToCart('${p.title}', ${p.price}, '${p.image}')" class="p-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function changeLanguage(lang) {
+            localStorage.setItem('app_lang', lang);
+            const data = i18n[lang];
+            
+            document.getElementById('txt-topbar').innerText = data.topbar;
+            document.getElementById('txt-topbar-link').innerText = data.topbarLink;
+            document.getElementById('nav-home').innerText = data.navHome;
+            document.getElementById('nav-catalog').innerText = data.navCatalog;
+            document.getElementById('nav-product').innerText = data.navProduct;
+            document.getElementById('nav-cart').innerText = data.navCart;
+            document.getElementById('nav-about').innerText = data.navAbout;
+            document.getElementById('btn-tg').innerText = data.btnTg;
+
+            document.getElementById('catalog-title').innerText = data.catalogTitle;
+            document.getElementById('catalog-desc').innerText = data.catalogDesc;
+            document.getElementById('filter-heading').innerText = data.filterHeading;
+            document.getElementById('filter-reset').innerText = data.filterReset;
+            document.getElementById('lbl-cat').innerText = data.lblCat;
+            document.getElementById('lbl-price').innerText = data.lblPrice;
+            document.getElementById('lbl-sort').innerText = data.lblSort;
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fas fa-sun text-lg text-yellow-500';
+                localStorage.setItem('app_theme', 'light');
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fas fa-moon text-lg text-yellow-400';
+                localStorage.setItem('app_theme', 'dark');
+            }
+        }
+
+        function setupMobileMenu() {
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+        }
+
+        function addToCart(title, price, image) {
+            let cart = JSON.parse(localStorage.getItem('istore_cart') || '[]');
+            const existing = cart.find(item => item.title === title);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ title, price, image, quantity: 1 });
+            }
+            localStorage.setItem('istore_cart', JSON.stringify(cart));
+            updateCartBadge();
+            alert(`${title} savatga qo'shildi!`);
+        }
+
+        function updateCartBadge() {
+            let cart = JSON.parse(localStorage.getItem('istore_cart') || '[]');
+            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-badge').innerText = total;
+        }
+
+        function openQuickOrderModal(productTitle, price) {
+            document.getElementById('modal-product-name').value = productTitle;
+            document.getElementById('modal-product-price').value = price;
+            document.getElementById('modal-product-display').innerText = `${productTitle} - $${price}`;
+            document.getElementById('quick-order-modal').classList.remove('hidden');
+        }
+
+        function closeQuickOrderModal() {
+            document.getElementById('quick-order-modal').classList.add('hidden');
+        }
+
+        async function sendTelegramQuickOrder(event) {
+            event.preventDefault();
+            const submitBtn = document.getElementById('modal-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Yuborilmoqda...`;
+
+            const product = document.getElementById('modal-product-name').value;
+            const price = document.getElementById('modal-product-price').value;
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const note = document.getElementById('cust-note').value || 'Izoh qoldirilmadi';
+
+            const message = `
+🚨 <b>YANGI TEZKOR BUYURTMA (Katalog Sahifasi)</b>
+
+📱 <b>Mahsulot:</b> ${product}
+💵 <b>Narxi:</b> $${price}
+👤 <b>Mijoz:</b> ${name}
+📞 <b>Telefon:</b> ${phone}
+📝 <b>Izoh/Manzil:</b> ${note}
+
+⏰ <i>Vaqt: ${new Date().toLocaleString()}</i>
+🌐 <b>Manba:</b> iStoreUz Catalog
+            `;
+
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                const result = await response.json();
+                if (result.ok) {
+                    alert('Rahmat! Buyurtmangiz Telegram botga yuborildi. Tez orada siz bilan bog\'lanamiz.');
+                    closeQuickOrderModal();
+                    document.getElementById('quick-order-form').reset();
+                } else {
+                    alert('Xatolik yuz berdi: ' + result.description);
+                }
+            } catch (err) {
+                alert('Server bilan bog\'lanishda xatolik yuz berdi!');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fab fa-telegram-plane"></i> <span>Buyurtmani Telegram Botga Yuborish</span>`;
+            }
+        }
+    </script>
+</body>
+</html>
